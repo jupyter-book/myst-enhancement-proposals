@@ -12,8 +12,6 @@ The purpose is to publicly discuss new features & design choices in the MyST eco
 
 ## TODO
 
-- Move repo to https://github.com/executablebooks/myst-eps
 - Add `@executablebooks/mep-editors` GitHub team
 - implement https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners
 - change `[myst implementation]: https://github.com/executablebooks/mystjs` in `0001.md`
-- add discussions-to link to `0001.md`
