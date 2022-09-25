@@ -69,6 +69,18 @@ class FrontMatterTransform(SphinxTransform):
             )
         if data["type"] not in ("Standards Track", "Informational", "Process"):
             raise ValueError(f"invalid 'type' value: {data['type']}")
+        if data["status"] not in (
+            "Draft",
+            "Active",
+            "Accepted",
+            "Provisional",
+            "Deferred",
+            "Rejected",
+            "Withdrawn",
+            "Final",
+            "Superseded",
+        ):
+            raise ValueError(f"invalid 'status' value: {data['status']}")
         # split authors
         if isinstance(data["author"], str):
             data["author"] = [data["author"]]
