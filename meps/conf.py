@@ -67,6 +67,8 @@ class FrontMatterTransform(SphinxTransform):
             raise ValueError(
                 f"'mep' front-matter does not contain all required keys: {missing}"
             )
+        if data["type"] not in ("Standards Track", "Informational", "Process"):
+            raise ValueError(f"invalid 'type' value: {data['type']}")
         # split authors
         if isinstance(data["author"], str):
             data["author"] = [data["author"]]
@@ -92,10 +94,15 @@ class FrontMatterTransform(SphinxTransform):
             if key == "id" or key not in data:
                 continue
             value = data[key]
+            if key == "discussions-to":
+                value_node = nodes.inline()
+                value_node += nodes.reference("", nodes.Text(str(value)), refuri=value)
+            else:
+                value_node = nodes.Text(str(value))
             tbody += nodes.row(
                 "",
                 nodes.entry("", nodes.Text(key.capitalize()), classes=["text-left"]),
-                nodes.entry("", nodes.Text(str(value)), classes=["text-left"]),
+                nodes.entry("", value_node, classes=["text-left"]),
             )
         title_node.parent.insert(title_node.parent.index(title_node) + 1, table)
 
