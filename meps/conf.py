@@ -13,6 +13,7 @@ html_title = "MyST Enhancements Proposals"
 
 # add a transform to check+use the front matter 'mep' data
 import json
+import re
 
 from docutils import nodes
 from sphinx.transforms import SphinxTransform
@@ -67,6 +68,7 @@ class FrontMatterTransform(SphinxTransform):
             raise ValueError(
                 f"'mep' front-matter does not contain all required keys: {missing}"
             )
+        # check type/status enums
         if data["type"] not in ("Standards Track", "Informational", "Process"):
             raise ValueError(f"invalid 'type' value: {data['type']}")
         if data["status"] not in (
@@ -81,6 +83,9 @@ class FrontMatterTransform(SphinxTransform):
             "Superseded",
         ):
             raise ValueError(f"invalid 'status' value: {data['status']}")
+        # check 'created' value in right format (YYYY-MM-DD)
+        if not re.fullmatch(r"\d\d\d\d-\d\d-\d\d", data["created"]):
+            raise ValueError(f"invalid 'created' value (not YYYY-MM-DD): {data['created']}")
         # split authors
         if isinstance(data["author"], str):
             data["author"] = [data["author"]]
