@@ -9,8 +9,6 @@ from pathlib import Path
 from yaml import safe_load
 import pandas as pd
 
-LOGGER = getLogger(__name__)
-
 project = "MyST Enhancement Proposals"
 copyright = "2023, Executable Books Team"
 author = "Executable Books Team"
@@ -59,6 +57,9 @@ html_theme_options = {
 }
 
 # -- Custom scripts -------------------------------------------------
+
+LOGGER = getLogger(__name__)
+
 # TODO: Could maybe re-use the metadata loading code we use in the transform?
 root = Path(__file__).parent
 meps = root / "meps"
