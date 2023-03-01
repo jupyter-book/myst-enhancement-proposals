@@ -68,12 +68,23 @@ Once the proposal has stabilized and the author wishes to move forward, do the f
   - More than five (5) weekdays have passed since the proposal was marked as `Active`.
   - At least two `PR Approvals` from **core team members**.
   - No `Request Changes` from a core team member.
-- If the MEP is accepted:
+- If there are **unresolved objections** (via `Request Changes` to the PR)
+  - The MEP author may restart the voting process after incorporating feedback to resolve the objection, **or** ask the Steering Council to follow the same {external:ref}`decision-making process used for team policy <governance:policy-decision>`.
+- If there are no unresolved objections, the MEP is **accepted**:
   - Update its status metadata to `Accepted` and merge the PR.
   - Once a PR is merged, it closes the issue and a decision has been made.
-  - The changes in the MEP then become "part of the myst spec" via a Pull Request to `executablebooks/myst-spec` that anyone is welcome to implement.
-- If there are unresolved objections (via `Request Changes` to the PR)
-  - The MEP author may restart the voting process after incorporating feedback to resolve the objection, **or** ask the Steering Council to follow the same {external:ref}`decision-making process used for team policy <governance:policy-decision>`.
+  - Finally, follow [](process:implement).
+
+(process:implement)=
+## Step 5: Update `myst-spec`
+
+When a MEP has been accepted, open a Pull Request to apply the necessary changes to https://github.com/executablebooks/myst-spec.
+Merging this PR implements the MEP, and makes it a formal part of the spec.
+Parsers may now implement this change as well. This MEP process is now finished.
+
+```{admonition} Update the MyST documentation as well
+While not formally part of the MyST spec, the MyST guide at [myst-tools.org](https://myst-tools.org) should also be updated as quickly as possible, so that users can more easily learn about the most up-to-date MyST specification.
+```
 
 ## Appendix: When should I open a MEP?
 
@@ -88,6 +99,6 @@ As a guide, below are examples of topics that warrant a MEP:
 - Amending the MEP process itself
 
 (appendix:blocking)=
-### Appendix: When to ask for changes
+## Appendix: When to ask for changes
 
 When blocking any change or objecting to a proposal, provide a rationale for what must be changed and why you believe it is critically important. _Do not disapprove because of differences in opinion. Only disapprove if you have a major strategic concern_. See [Strategies for integrating objections](https://www.sociocracyforall.org/strategies-for-integrating-objections/) for what we are aiming for.

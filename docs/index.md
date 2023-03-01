@@ -13,7 +13,27 @@ overview
 meps/index
 ```
 
+```{admonition} Work in progress!
+This process is relatively new.
+Bear with us, and please provide feedback if you think the process can be improved!
+```
+
+## MyST Specification
+
+The MyST specification is at [`spec.myst-tools.org`](https://spec.myst-tools.org) (repository: https://github.com/executablebooks/myst-spec).
+It is the source of truth for MyST Markdown syntax.
+
+When a MEP is accepted, it is generally implemented by modifying the specification and the documentation around it.
+MyST parsers may then choose to implement these changes on their own.
+
+```{toctree}
+:hidden:
+MyST specification <https://spec.myst-tools.org>
+```
+
 ## Goals of the MEP process
+
+Below are a few goals that guided the MEP process as it currently exists.
 
 - **Formal without being oppressive**. Provide slightly more structure than our organizational policy, to account for the fact that MEPs have many more stakeholders and decision-makers. However keep it as simple as possible to avoid overly-complex discussion that leads to frustrating and inefficient decision-making.
 - **Make the process inclusive**. Ensure a process for discussion and deciding that is inclusive and that encourages productive discussion from many parts of the project.

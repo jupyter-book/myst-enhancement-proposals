@@ -11,16 +11,18 @@ import pandas as pd
 
 LOGGER = getLogger(__name__)
 
-project = 'MyST Enhancement Proposals'
-copyright = '2023, Executable Books Team'
-author = 'Executable Books Team'
+project = "MyST Enhancement Proposals"
+copyright = "2023, Executable Books Team"
+author = "Executable Books Team"
 
 # -- General configuration ---------------------------------------------------
-extensions = ["myst_parser", "sphinx.ext.intersphinx",
+extensions = [
+    "myst_parser",
+    "sphinx.ext.intersphinx",
 ]
 myst_enable_extensions = ["linkify"]
 
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 
 intersphinx_mapping = {
@@ -29,30 +31,30 @@ intersphinx_mapping = {
 
 
 # -- Options for HTML output -------------------------------------------------
-html_theme = 'sphinx_book_theme'
-html_static_path = ['_static']
+html_theme = "sphinx_book_theme"
+html_static_path = ["_static"]
 
 html_theme_options = {
     "logo": {
-      "image_light": "_static/logo-wide.png",
-      "image_dark": "_static/logo-wide-dark.png",
-      "text": "Enhancement Proposals",
+        "image_light": "_static/logo-wide.png",
+        "image_dark": "_static/logo-wide-dark.png",
+        "text": "Enhancement Proposals",
     },
     "icon_links": [
-      {
-        "url": "https://github.com/executablebooks/myst-enhancement-proposals",
-        "icon": "fa-brands fa-github",
-      },
-      {
-        "url": "https://executablebooks.org",
-        "icon": "_static/eb-logo.png",
-        "type": "local"
-      },
-      {
-        "url": "https://compass.executablebooks.org",
-        "icon": "fa-solid fa-compass",
-      }
-    ]
+        {
+            "url": "https://github.com/executablebooks/myst-enhancement-proposals",
+            "icon": "fa-brands fa-github",
+        },
+        {
+            "url": "https://executablebooks.org",
+            "icon": "_static/eb-logo.png",
+            "type": "local",
+        },
+        {
+            "url": "https://compass.executablebooks.org",
+            "icon": "fa-solid fa-compass",
+        },
+    ],
 }
 
 # -- Custom scripts -------------------------------------------------
@@ -69,9 +71,8 @@ for imep in meps.rglob("mep-*"):
     tablemd["#"] = f"{yaml['mep']['id']}"
     tablemd["title"] = f"[{yaml['title']}]({imep.relative_to(root / 'meps')})"
     tablemd["created"] = yaml["mep"]["created"]
-    tablemd["authors"] = "<br />".join(yaml["mep"]["authors"])
     tablemd["status"] = yaml["mep"]["status"]
-    tablemd["discussion"] = f"[discussion]({yaml['mep']['discussion']})"
+    tablemd["discussion"] = f"[link]({yaml['mep']['discussion']})"
     table.append(tablemd)
 
 # Write the table to a .txt file so that we can load it into the MEP index
