@@ -32,6 +32,7 @@ intersphinx_mapping = {
 html_theme = "sphinx_book_theme"
 html_static_path = ["_static"]
 html_css_files = ["custom.css"]
+html_favicon = "_static/eb-logo.png"
 
 html_theme_options = {
     "logo": {
@@ -83,7 +84,7 @@ for imep in meps.rglob("mep-*"):
 
 # Write the table to a .txt file so that we can load it into the MEP index
 path_md = root / "_build/dirhtml/meps.txt"
-path_md.parent.mkdir(exist_ok=True)
+path_md.parent.mkdir(exist_ok=True, parents=True)
 pd.DataFrame(table).to_markdown(path_md, index=None)
 
 
