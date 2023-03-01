@@ -1,8 +1,12 @@
 (governance:meps)=
 # MyST Enhancement Proposals
 
-Because the MyST specification has many interior and exterior stakeholders, we use a more formal and structured process around changing the specification.
+A formal process for changing [the MyST Markdown Specification](https://myst-tools.org/docs/spec) and an archive of present and past proposals.
+
+Because the MyST specification has many interior and exterior stakeholders, we use a more formal and structured process around changing the specification[^gov].
 These are called **MyST Enhancement Proposals (MEPs)**.
+
+[^gov]: See [our Team Compass](https://compass.executablebooks.org) for other governance and decision-making processes in the Executable Books community.
 
 This process is encoded in https://github.com/executablebooks/myst-enhancement-proposals and in this documentation.
 The sections below describe the process, and the [MEP index](meps/index) is where you can find all of our MEPs.
