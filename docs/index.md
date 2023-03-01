@@ -10,6 +10,13 @@ The sections below describe the process, and the [MEP index](meps/index) is wher
 ```{toctree}
 :maxdepth: 1
 overview
+strategy
+```
+
+% Hidden because we'll include the table in the index page so this avoids confusion
+
+```{toctree}
+:hidden:
 meps/index
 ```
 
@@ -31,11 +38,9 @@ MyST parsers may then choose to implement these changes on their own.
 MyST specification <https://spec.myst-tools.org>
 ```
 
-## Goals of the MEP process
+## List of MEPs
 
-Below are a few goals that guided the MEP process as it currently exists.
+Below is a list of all past and current MEPs, you can also find this table at [](meps/index).
 
-- **Formal without being oppressive**. Provide slightly more structure than our organizational policy, to account for the fact that MEPs have many more stakeholders and decision-makers. However keep it as simple as possible to avoid overly-complex discussion that leads to frustrating and inefficient decision-making.
-- **Make the process inclusive**. Ensure a process for discussion and deciding that is inclusive and that encourages productive discussion from many parts of the project.
-- **Make the process efficient**. Ensure that there is enough information, and with the right structure, to have focused asynchronous discussion that leads to a decision-making cadence that is sustainable for the project.
-- **Design for many stakeholders**. Ensure that the specification evolves in a way that benefits our major stakeholders, and that is not unintentionally over-fit to the perspective of only a subet of the Executable Books community.
+```{include} _build/dirhtml/meps.txt
+```

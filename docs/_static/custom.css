@@ -1,0 +1,7 @@
+.mep-metadata {
+  font-size: .8rem;
+}
+
+.mep-metadata td:first-child {
+  font-weight: bold;
+}

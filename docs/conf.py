@@ -33,6 +33,7 @@ intersphinx_mapping = {
 # -- Options for HTML output -------------------------------------------------
 html_theme = "sphinx_book_theme"
 html_static_path = ["_static"]
+html_css_files = ["custom.css"]
 
 html_theme_options = {
     "logo": {
@@ -69,7 +70,7 @@ for imep in meps.rglob("mep-*"):
 
     tablemd = {}
     tablemd["#"] = f"{yaml['mep']['id']}"
-    tablemd["title"] = f"[{yaml['title']}]({imep.relative_to(root / 'meps')})"
+    tablemd["title"] = f"[{yaml['title']}](/{imep.relative_to(root)})"
     tablemd["created"] = yaml["mep"]["created"]
     tablemd["status"] = yaml["mep"]["status"]
     tablemd["discussion"] = f"[link]({yaml['mep']['discussion']})"
@@ -80,6 +81,7 @@ path_md = root / "_build/dirhtml/meps.txt"
 pd.DataFrame(table).to_markdown(path_md, index=None)
 
 # Add a frontmatter table to the top of each MEP.
+
 
 class FrontMatterTransform(SphinxTransform):
     default_priority = 1000
@@ -112,7 +114,7 @@ class FrontMatterTransform(SphinxTransform):
             data = json.loads(meta)
         except Exception as exc:
             raise ValueError(f"could not read front matter: {exc}")
-        
+
         # Some basic validation to make sure the required fields are there
         required_keys = ["id", "created", "authors", "status", "discussion"]
         missing = set(required_keys).difference(data)
@@ -130,7 +132,9 @@ class FrontMatterTransform(SphinxTransform):
             raise ValueError(f"invalid 'status' value: {data['status']}")
         # check 'created' value in right format (YYYY-MM-DD)
         if not re.fullmatch(r"\d\d\d\d-\d\d-\d\d", data["created"]):
-            raise ValueError(f"invalid 'created' value (not YYYY-MM-DD): {data['created']}")
+            raise ValueError(
+                f"invalid 'created' value (not YYYY-MM-DD): {data['created']}"
+            )
 
         # split authors
         if isinstance(data["authors"], str):
@@ -145,7 +149,7 @@ class FrontMatterTransform(SphinxTransform):
         title_node.insert(0, nodes.Text(f"MEP {data['id']} - "))
 
         # create a docutils table of the metadata, just under the heading
-        table = nodes.table(classes=["align-left"])
+        table = nodes.table(classes=["mep-metadata align-left"])
         tgroup = nodes.tgroup(cols=2)
         table += tgroup
         tgroup += nodes.colspec(colwidth=50)

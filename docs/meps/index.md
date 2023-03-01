@@ -1,4 +1,4 @@
-# Index of MEPs
+# List of MEPs
 
 Below is a list of Enhancement Proposals.
 Click the title of each to see its content.
