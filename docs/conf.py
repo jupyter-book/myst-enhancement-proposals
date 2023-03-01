@@ -60,6 +60,10 @@ html_theme_options = {
 
 LOGGER = getLogger(__name__)
 
+##
+# Add a table index of all of our MEPs we insert into a few places.
+##
+
 # TODO: Could maybe re-use the metadata loading code we use in the transform?
 root = Path(__file__).parent
 meps = root / "meps"
@@ -79,11 +83,13 @@ for imep in meps.rglob("mep-*"):
 
 # Write the table to a .txt file so that we can load it into the MEP index
 path_md = root / "_build/dirhtml/meps.txt"
+path_md.parent.mkdir(exist_ok=True)
 pd.DataFrame(table).to_markdown(path_md, index=None)
 
+
+##
 # Add a frontmatter table to the top of each MEP.
-
-
+##
 class FrontMatterTransform(SphinxTransform):
     default_priority = 1000
 
