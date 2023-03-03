@@ -138,6 +138,8 @@ class FrontMatterTransform(SphinxTransform):
             "Not Accepted",
         ):
             raise ValueError(f"invalid 'status' value: {data['status']}")
+        # ensure date is a string
+        data['created'] = str(data['created'])
         # check 'created' value in right format (YYYY-MM-DD)
         if not re.fullmatch(r"\d\d\d\d-\d\d-\d\d", data["created"]):
             raise ValueError(
