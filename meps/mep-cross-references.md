@@ -18,17 +18,18 @@ The syntax aims to be familiar and work across different rendering platforms.
 Most internal content can be referenced using a hash-link, `[](#my-id)`, which is the recommended replacement for the multiple role options that can do this in MyST currently (e.g. `` {ref}`my-id` ``, `` {eq}`my-id` ``, `` {numref}`my-id` ``).
 We provide options for increasing specificity for these links in all cases to deal with duplicate references across pages in a project.
 
-| Existing Syntax                          | New Syntax                   |
-| :--------------------------------------- | :--------------------------- |
-| `[](my-id)`[^legacy_hash]                | `[](#my-id)`                 |
-| `` {ref}`my-id` ``                       | `[](#my-id)`                 |
-| `` {eq}`my-equation` ``                  | `[](#my-equation)`           |
-| `` {ref}`Custom Text <my-id>` ``         | `[Custom Text](#my-id)`      |
-| `` {numref}`See "{name}" <my-id>` ``     | `[See "%t"](#my-id)`         |
-| `` {numref}`Custom Number %s <my-id>` `` | `[Custom Number %s](#my-id)` |
-| `` {doc}`my-doc` ``                      | `[](my-doc.md)`              |
-| `` {doc}`my-doc` ``                      | `[](../examples/my-doc.md)`  |
-| `` {download}`my-doc.zip` ``             | `[](my-doc.zip)`             |
+| Existing Syntax                                | New Syntax                         |
+| :--------------------------------------------- | :--------------------------------- |
+| `[](my-id)`[^legacy_hash]                      | `[](#my-id)`                       |
+| `` {ref}`my-id` ``                             | `[](#my-id)`                       |
+| `` {eq}`my-equation` ``                        | `[](#my-equation)`                 |
+| `` {ref}`Custom Text <my-id>` ``               | `[Custom Text](#my-id)`            |
+| `` {numref}`See "{name}" <my-id>` ``           | `[See "{name}"](#my-id)`           |
+| `` {numref}`Custom Number %s <my-id>` ``       | `[Custom Number {number}](#my-id)` |
+| `` {numref}`Custom Number {number} <my-id>` `` | `[Custom Number {number}](#my-id)` |
+| `` {doc}`my-doc` ``                            | `[](my-doc.md)`                    |
+| `` {doc}`my-doc` ``                            | `[](../examples/my-doc.md)`        |
+| `` {download}`my-doc.zip` ``                   | `[](my-doc.zip)`                   |
 
 ## Context
 
@@ -180,17 +181,18 @@ The goal is to support all use cases of cross-referencing with the most common u
 
 **Overview:**
 
-| Existing Syntax                          | New Syntax                   |
-| :--------------------------------------- | :--------------------------- |
-| `[](my-id)`[^legacy_hash]                | `[](#my-id)`                 |
-| `` {ref}`my-id` ``                       | `[](#my-id)`                 |
-| `` {eq}`my-equation` ``                  | `[](#my-equation)`           |
-| `` {ref}`Custom Text <my-id>` ``         | `[Custom Text](#my-id)`      |
-| `` {numref}`See "{name}" <my-id>` ``     | `[See "%t"](#my-id)`         |
-| `` {numref}`Custom Number %s <my-id>` `` | `[Custom Number %s](#my-id)` |
-| `` {doc}`my-doc` ``                      | `[](my-doc.md)`              |
-| `` {doc}`my-doc` ``                      | `[](../examples/my-doc.md)`  |
-| `` {download}`my-doc.zip` ``             | `[](my-doc.zip)`             |
+| Existing Syntax                                | New Syntax                         |
+| :--------------------------------------------- | :--------------------------------- |
+| `[](my-id)`[^legacy_hash]                      | `[](#my-id)`                       |
+| `` {ref}`my-id` ``                             | `[](#my-id)`                       |
+| `` {eq}`my-equation` ``                        | `[](#my-equation)`                 |
+| `` {ref}`Custom Text <my-id>` ``               | `[Custom Text](#my-id)`            |
+| `` {numref}`See "{name}" <my-id>` ``           | `[See "{name}"](#my-id)`           |
+| `` {numref}`Custom Number %s <my-id>` ``       | `[Custom Number {number}](#my-id)` |
+| `` {numref}`Custom Number {number} <my-id>` `` | `[Custom Number {number}](#my-id)` |
+| `` {doc}`my-doc` ``                            | `[](my-doc.md)`                    |
+| `` {doc}`my-doc` ``                            | `[](../examples/my-doc.md)`        |
+| `` {download}`my-doc.zip` ``                   | `[](my-doc.zip)`                   |
 
 [^legacy_hash]: This is backwards compatible, however, now raises a `xref_legacy` warning for old syntax.
 
@@ -246,7 +248,7 @@ url.pathname; // "target.md"
 url.hash; // "#my-ref"
 ```
 
-For most internally linked references, we expect the inline syntax to be most commonly used, with the autolink and scheme to only be used when specific behavior is intended. The following links and references are supported:
+The following links and references are supported:
 
 | Link Type                | Auto Link                  | Inline                    |
 | :----------------------- | :------------------------- | :------------------------ |
@@ -294,7 +296,7 @@ Adding two sections of the same name does not raise a duplicate identifier warni
 Files that are outside of the table of contents of the project and are referenced directly are downloads.
 
 - These follow the same path rules as above when referring to a unknown file-type (e.g. `./my-file.txt`).
-- Files with known file extensions (e.g. `*.md`, `*.ipynb`) will default to being document links, not downloads.
+- Files with known file extensions (e.g. `*.md`, `*.ipynb`) will default to being document links, not downloads, with the document title being used as the default text.
 - Downloads can be specified explicitly by a `<path:my-file.md>`, which will revert to a download regardless of the extension. (i.e. this overrides the default for `[](my-file.md)`, which is `<project:my-file.md>`).
 
 ### Warnings and Errors
