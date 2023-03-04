@@ -2,7 +2,7 @@
 title: Cross Reference Simplifications using Markdown Links
 mep:
   id: 0001
-  created: 2023-02-25
+  created: 2023-02-28
   authors:
     - Chris Sewell @chrisjsewell
     - Rowan Cockett @rowanc1
@@ -211,19 +211,19 @@ If the `text` is not included, it will be filled in by the default of the target
 - If the reference target is not enumerated, the title will be used. This may be the section header text (including syntax/style) or a figure caption.
 - If the node is not enumerated and does not have a title, the reference label will be used.
 
-If the `text` is included it will be used as is with two additional template values (`%s` and `%t`)
+If the `text` is included it will be used as is with two additional template values (`{number}` and `{name}`)
 
-- Enumeration (`%s`)
+- Enumeration (`{number}`)
 
-  - Any reference target that is enumerated can reference that number or string with a `%s`.
+  - Any reference target that is enumerated can reference that number or string with a `{number}`.
   - If the target is enumerated and there is no text provided by the link, the text will be the numbered form of the reference (e.g. "Section 2.1.2", "Fig. 3", or "(1)" depending on the node and parser options)
-  - If a `%s` is used and the node is not enumerated, the `%s` will be replaced by "??" and a warning raised.
+  - If a `{number}` is used and the node is not enumerated, the `{number}` will be replaced by "??" and a warning raised.
 
-- Title (`%t`)
-  - Any node can include the title of a reference including any styles (e.g. Sections are the section title; Figures and Tables are the caption).
-  - If a `%t` is used and the node does not have an explicit name or title, the node reference label will be used.
+- Reference text (`{name}`)
+  - Any node can include the text of a reference including any styles (e.g. Sections are the section title; Figures and Tables are the caption).
+  - If `{name}` is used and the node does not have an explicit name or title, the node reference label will be used.
 
-In both cases, the `%` can be escaped with a preceding backslash, that is `\%s` or `\%t`, and the text will not be replaced.
+In both cases, the template can be escaped with a preceding backslash, that is `\{number}` or `\{name}`, and the text will not be replaced.
 
 #### `link`
 
