@@ -18,7 +18,7 @@ extensions = [
     "myst_parser",
     "sphinx.ext.intersphinx",
 ]
-myst_enable_extensions = ["linkify"]
+myst_enable_extensions = ["linkify", "colon_fence"]
 
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
