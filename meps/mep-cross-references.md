@@ -13,21 +13,19 @@ mep:
 
 ## Summary
 
-We propose a cross-reference syntax that uses CommonMark links to support all use cases of cross-referencing both internally to a project and externally using intersphinx. The syntax aims to be familiar and work across different rendering platforms. Most internal content can be referenced using a hash-link, `[](#my-id)`, which is the recommended replacement for the multiple role options that can do this in MyST currently (e.g. `` {ref}`my-id` ``, `` {eq}`my-id` ``, `` {numref}`my-id` ``). We also introduce a `myst` scheme/protocol, which allows for rich cross-project referencing and is compatible with intersphinx. For example, a `[](myst:python#zipfile.ZipFile)` link will create a cross-reference to the Python documentation. We provide options for increasing specificity for these links in all cases to deal with duplicate references across pages, domains, and projects.
+We propose a cross-reference syntax that uses CommonMark links to support all use cases of cross-referencing content internal to a project. The syntax aims to be familiar and work across different rendering platforms. Most internal content can be referenced using a hash-link, `[](#my-id)`, which is the recommended replacement for the multiple role options that can do this in MyST currently (e.g. `` {ref}`my-id` ``, `` {eq}`my-id` ``, `` {numref}`my-id` ``). We provide options for increasing specificity for these links in all cases to deal with duplicate references across pages in a project.
 
-| Existing Syntax                                   | New Syntax                                 |
-| :------------------------------------------------ | :----------------------------------------- |
-| `[](my-id)`[^legacy_hash]                         | `[](#my-id)`                               |
-| `` {ref}`my-id` ``                                | `[](#my-id)`                               |
-| `` {eq}`my-equation` ``                           | `[](#my-equation)`                         |
-| `` {ref}`Custom Text <my-id>` ``                  | `[Custom Text](#my-id)`                    |
-| `` {ref}`See "{name}" <my-id>` ``                 | `[See "%t"](#my-id)`                       |
-| `` {numref}`Custom Number %s <my-id>` ``          | `[Custom Number %s](#my-id)`               |
-| `` {doc}`my-doc` ``                               | `[](my-doc.md)`                            |
-| `` {doc}`my-doc` ``                               | `[](../examples/my-doc.md)`                |
-| `` {download}`my-doc.zip` ``                      | `[](my-doc.zip)`                           |
-| `` {py:class}`zipfile.ZipFile` ``                 | `[](#zipfile.ZipFile)`                     |
-| `` {external+python:py:class}`zipfile.ZipFile` `` | `[](myst:python?py:class#zipfile.ZipFile)` |
+| Existing Syntax                          | New Syntax                   |
+| :--------------------------------------- | :--------------------------- |
+| `[](my-id)`[^legacy_hash]                | `[](#my-id)`                 |
+| `` {ref}`my-id` ``                       | `[](#my-id)`                 |
+| `` {eq}`my-equation` ``                  | `[](#my-equation)`           |
+| `` {ref}`Custom Text <my-id>` ``         | `[Custom Text](#my-id)`      |
+| `` {ref}`See "{name}" <my-id>` ``        | `[See "%t"](#my-id)`         |
+| `` {numref}`Custom Number %s <my-id>` `` | `[Custom Number %s](#my-id)` |
+| `` {doc}`my-doc` ``                      | `[](my-doc.md)`              |
+| `` {doc}`my-doc` ``                      | `[](../examples/my-doc.md)`  |
+| `` {download}`my-doc.zip` ``             | `[](my-doc.zip)`             |
 
 ## Context
 
@@ -39,11 +37,9 @@ In MyST (and Sphinx) there are many ways to cross-reference content:
 - `` {any}`any-reference` `` - referencing anything, including terms and python classes
 - `` {doc}`./my-file.md` `` - referencing other documents
 - `` {download}`pdf <doc/mypdf.pdf>` `` - downloading content
-- `` {external+python:py:class}`zipfile.ZipFile` `` - intersphinx
-- Custom `extlinks` through simple [Sphinx configuration](https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html)
 
 These are all powerful roles, encoding semantic meaning and providing rich inter-linked content. These links can also be used to power rich user-interfaces, such as [sphinx-hoverref](https://sphinx-hoverxref.readthedocs.io/en/latest/). There are also simple configuration options for [adding new external links in Sphinx](https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html).
-However, the breadth, verbosity (especially with intersphinx), and overlapping functionality of these roles can be confusing and unfamiliar to new users.
+However, the breadth, verbosity, and overlapping functionality of these roles can be confusing and unfamiliar to new users.
 
 For example:
 
@@ -54,17 +50,17 @@ Additionally, there is currently not overlap with CommonMark syntax that can, fo
 
 ### Design Goals
 
-Our goal with this MEP is to provide a simplified syntax to make use of **markdown links**, and tap into the rich cross-referencing infrastructure of sphinx/docutils. In this MEP we aim to balance:
+Our goal with this MEP is to provide a simplified syntax to make use of **markdown links**, and tap into rich cross-referencing capabilities. In this MEP we aim to balance:
 
 (syntax-design-goals)=
 
 Reuse Existing Standards
 : where possible syntax should reuse existing practices and standards, for example, CommonMark compliance
 
-Graceful Degredation
+Graceful Degradation
 : syntax should aim to render with reduced functionality in places that don't support MyST
 
-Rememberability
+Memorability
 : having a syntax that is easy to remember
 
 Readability
@@ -78,8 +74,8 @@ Extensibility
 
 **Specifically for this MEP, our proposal aims to:**
 
-- Provide a concise markdown link syntax to hook into Sphinx referencing infrastructure (including intersphinx)
-- Ensure that this syntax can be used by multiple projects (e.g. myst-parser (sphinx/python), mystjs, and future ways to cross-reference content (e.g. JATS or other myst-suggested formmats))
+- Provide a concise markdown link syntax to hook into Sphinx cross-referencing infrastructure
+- Ensure that this syntax can be used by multiple projects (e.g. myst-parser (sphinx/python), mystjs, and future ways to cross-reference content (e.g. intersphinx, JATS or other structured formats))
 - Ensure that the markdown rendering gracefully degrades on other rendering platforms (e.g. GitHub, Jupyter)
 - Continue to support existing roles, and have as few deprecations in syntax as possible
 - Support styled links and cross-references (e.g. with bold or italic in the reference)
@@ -87,7 +83,7 @@ Extensibility
 - Follow web-standards / conventions for URLs where possible (e.g. query strings, protocols)
 - Design new additions to the `myst-spec` AST that can provide rich information to renderers
 
-These link improvements are completed with academic citations in mind, however, are not specifically designed to support the intricacies of bibliograpies and referencing. We encourage a future MEP to address these concerns.
+These link improvements are completed in the context of supporting (1) academic citations; and (2) intersphinx cross-references; however, this MEP does not specifically support the intricacies of intersphinx, bibliographies or referencing. We encourage a future MEPs to address these concerns.
 
 ### Background
 
@@ -117,7 +113,7 @@ The MEP aims to build on the existing CommonMark link format, which come in thre
    <scheme:path?query#fragment>
    ```
 
-In most cases, the [scheme](https://en.wikipedia.org/wiki/URL)[^protocol] (e.g. `https:`, `mailto:`, or `ftp:`) is optional and assumed to be a web URL (`http:`). For autolinks, however, the scheme is required; this is designed to disambiguate inline HTML elements (i.e. `<b>` is not a link, but `<https://executablebooks.org/>` is).
+In most cases, the [scheme](https://en.wikipedia.org/wiki/URL)[^protocol] (e.g. `https:`, `mailto:`, or `ftp:`) is optional and assumed to be a web URL (`http:`). For autolinks, however, the scheme is **required**; this is designed to disambiguate inline HTML elements (i.e. `<b>` is not a link, but `<https://executablebooks.org/>` is).
 
 [^protocol]: the URL `scheme` is also known as the URL [protocol](https://developer.mozilla.org/en-US/docs/Web/API/URL/protocol).
 
@@ -151,16 +147,6 @@ The current supported syntax is listed for each component below:
 - `[](../file-types/myst-notebooks.md)` - a relative path with POSIX path separators `/`, if no title provided MyST will fill in with the referenced title (or file name).
 - `[A different page](../file-types/myst-notebooks.md)` - using a custom title.
 
-**"Anything"**
-
-Sphinx has the concept of "domains", (e.g. `std:`, `py:`, etc.) to allow potentially duplicate reference names to exist. With the exception of the `{eq}` role for equations, all references above act in the standard domain, `std:`, by default. This means you have to take action to look at other types of elements like python classes (or an equation).
-
-- TODO
-
-**Downloads**
-
-- TODO
-
 **Intersphinx**
 
 Multiple other sphinx documentation sites can be referenced in MyST syntax ([Sphinx documentation](https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#module-sphinx.ext.intersphinx)). For example, the `python` documentation can be referenced from a configuration (e.g. the [intersphinx_mapping](https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#configuration) in `conf.py`), which points to the appropriate intersphinx inventory (e.g. `https://docs.python.org/3`) containing a `*.inv` file.
@@ -168,35 +154,37 @@ Multiple other sphinx documentation sites can be referenced in MyST syntax ([Sph
 - `` {external+python:py:class}`zipfile.ZipFile` `` - a reference to the Python class `ZipFile`
 - `` {py:class}`zipfile.ZipFile` `` - a short-hand reference that will search locally first, then any referenced inventories
 
+:::{note}
+Although we consider intersphinx in this MEP, we do not suggest a specific syntax, and will leave that discussion to a future MEP.
+:::
+
 **Styling**
 
 All link syntax supports styling inside of the reference, (e.g. `[A **bolded _reference_** to a page](./myst.md)`) the reference role syntax currently does **not** support styling of the inner content.
 
 ## Proposal
 
-We propose a cross-reference syntax that uses CommonMark links in all three forms. The goal is to support all usecases of cross-referencing with the most common use cases of referencing a document, file, section or element being simple, terse and familiar.
+We propose a cross-reference syntax that uses CommonMark links in all three forms. The goal is to support all use cases of cross-referencing with the most common use cases of referencing a document, file, section or element being simple, terse and familiar.
 
 **Overview:**
 
-| Existing Syntax                                   | New Syntax                                 |
-| :------------------------------------------------ | :----------------------------------------- |
-| `[](my-id)`[^legacy_hash]                         | `[](#my-id)`                               |
-| `` {ref}`my-id` ``                                | `[](#my-id)`                               |
-| `` {eq}`my-equation` ``                           | `[](#my-equation)`                         |
-| `` {ref}`Custom Text <my-id>` ``                  | `[Custom Text](#my-id)`                    |
-| `` {ref}`See "{name}" <my-id>` ``                 | `[See "%t"](#my-id)`                       |
-| `` {numref}`Custom Number %s <my-id>` ``          | `[Custom Number %s](#my-id)`               |
-| `` {doc}`my-doc` ``                               | `[](my-doc.md)`                            |
-| `` {doc}`my-doc` ``                               | `[](../examples/my-doc.md)`                |
-| `` {download}`my-doc.zip` ``                      | `[](my-doc.zip)`                           |
-| `` {py:class}`zipfile.ZipFile` ``                 | `[](#zipfile.ZipFile)`                     |
-| `` {external+python:py:class}`zipfile.ZipFile` `` | `[](myst:python?py:class#zipfile.ZipFile)` |
+| Existing Syntax                          | New Syntax                   |
+| :--------------------------------------- | :--------------------------- |
+| `[](my-id)`[^legacy_hash]                | `[](#my-id)`                 |
+| `` {ref}`my-id` ``                       | `[](#my-id)`                 |
+| `` {eq}`my-equation` ``                  | `[](#my-equation)`           |
+| `` {ref}`Custom Text <my-id>` ``         | `[Custom Text](#my-id)`      |
+| `` {ref}`See "{name}" <my-id>` ``        | `[See "%t"](#my-id)`         |
+| `` {numref}`Custom Number %s <my-id>` `` | `[Custom Number %s](#my-id)` |
+| `` {doc}`my-doc` ``                      | `[](my-doc.md)`              |
+| `` {doc}`my-doc` ``                      | `[](../examples/my-doc.md)`  |
+| `` {download}`my-doc.zip` ``             | `[](my-doc.zip)`             |
 
 [^legacy_hash]: This is backwards compatible, however, now raises a `xref_legacy` warning for old syntax.
 
 All of the above link examples can be easily complemented by both adding Title Link syntax and Reference Link syntax (i.e. `[Explicit *Markdown* text][label]`).
-We have omitted the auto-link syntax from the overview for brevetiy, they are shown in detail below.
-In all cases, the existing role syntax should continue to work and recieve ongoing support from the parser(s).
+We have omitted the auto-link syntax from the overview for brevity, they are shown in detail below.
+In all cases, the existing role syntax should continue to work and receive ongoing support from the parser(s).
 
 ### Syntax
 
@@ -224,8 +212,6 @@ If the `text` is included it will be used as is with two additional template val
   - If a `%t` is used and the node does not have an explicit name or title, the node reference label will be used.
   - Parsers can optionally choose to support `{name}` which is from Sphinx.
 
-> [name=Rowan Cockett] In sphinx this is `{name}`, I think that it is confused with the "name" of the node. Suggesting '%t'.
-
 #### `link`
 
 The links are defined by a scheme, which can be standard protocols (`http:`, `mailto:`). Here we propose three new schemes, `path`, `project`, and `myst`, which is an extensibility point described by [CommonMark](https://spec.commonmark.org/0.30/#example-598). These schemes are used to indicate that the link should be resolved by MyST specific logic, and follows standard [URI][uri] syntax:
@@ -239,42 +225,30 @@ The exception is when _explicitly_ referring to an external MyST site, Jupyter B
 These URIs can be safely and easily parsed by any common URL parser. For example in Javascript:
 
 ```js
-const url = new URL('myst:python?std:py#my-ref');
-url.protocol; // "myst:"
-url.pathname; // "python"
-url.search; // "std:py"
+const url = new URL('project:target.md#my-ref');
+url.protocol; // "project:"
+url.pathname; // "target.md"
 url.hash; // "#my-ref"
 ```
 
-This supports the following links and references:
+For most internally linked references, we expect the inline syntax to be most commonly used, with the autolink and scheme to only be used when specific behavior is intended. The following links and references are supported:
 
-| Link Type                  | Auto Link                  | Inline                    |
-| :------------------------- | :------------------------- | :------------------------ |
-| External URL               | `<https://example.com>`    | `[](https://example.com)` |
-| Local file download        | `<path:file.txt>`          | `[](file.txt)`            |
-| File download (explicit)   | `<path:file.md>`           | `[](path:file.md)`        |
-| Project document           | `<project:file.md>`        | `[](file.md)`             |
-| Target in document         | `<project:target.md#file>` | `[](file.md#target)`      |
-| Target in current document | `<project:.#file>`         | `[](.#target)`            |
-| Target in project          | `<project:#target>`        | `[](#target)`             |
-| Cross-project to "key"     | `<myst:key#target>`        | `[](myst:key#target)`     |
-
-> [name=Rowan Cockett] There is [discussion here](https://github.com/executablebooks/MyST-Parser/pull/613#discussion_r970730481) as to if we should just introduce a single `myst:` protocol. I opted to leave it as three, I think most of them will be rarely used, with the exception of myst? Thoughts?
-
-> [name=Rowan Cockett] Do we need the "Target in current document" syntax? If we can, I would suggest we remove it.
+| Link Type                | Auto Link                  | Inline                    |
+| :----------------------- | :------------------------- | :------------------------ |
+| External URL             | `<https://example.com>`    | `[](https://example.com)` |
+| Local file download      | `<path:file.txt>`          | `[](file.txt)`            |
+| File download (explicit) | `<path:file.md>`           | `[](path:file.md)`        |
+| Project document         | `<project:file.md>`        | `[](file.md)`             |
+| Target in a document     | `<project:target.md#file>` | `[](file.md#target)`      |
+| Target in project        | `<project:#target>`        | `[](#target)`             |
 
 ### Search Order and Specificity
 
-All references search the local document first[^specific_doc], then the local project in the order of the table of contents[^local_doc], then any externally-linked references (e.g. intersphinx inventories) in the order specified by the configuration. A `xref_multiple` warning is raised if multiple matches are found.
+All references search the local document first[^specific_doc], then the local project in the order of the table of contents. A `xref_multiple` warning is raised if multiple matches are found.
 
 [^specific_doc]: With the exception of an explicit reference to a specific page, i.e. `[](./examples/my-doc.md#explicit-reference)`
-[^local_doc]: With the exception of a local-only reference to a specific page, i.e. `[](.#explicit-reference)`
 
-To search a specific inventory, the `myst:key` syntax can be used, for example, `myst:python#zipfile.ZipFile` will search for the `zipfile.ZipFile` reference in any domain from the `python` inventory.
-
-In large documentation sites, a referenced target can be present in multiple domains and/or object types, then you will see a `xref_multiple` warning letting you know that there are mutiple matches for the intended target. Use the query string to filter matches by `domain:object_type`. Use `*` to match any value, e.g. `*:term` will match term in any domain. For example, `[text](?std:label#api/main)` searches only in the `std:label` domain.
-
-Note that the `domain:object_type` syntax is specific to Sphinx, and may change or depend on the `key` that is being referenced. For example, targeting a [JATS document](https://jats.nlm.nih.gov/archiving/tag-library/1.3/attribute/ref-type.html), the reference kind can be `fig`, `sec`, `chem` etc. and doesn't have a concept of a domain. The `myst:` query syntax is designed to be flexible and extensible to these use cases.
+In large documentation sites, a referenced target can be present in multiple documents, in that case, the parser will emit a `xref_multiple` warning letting you know that there are multiple matches for the intended target.
 
 ### Implicit Section Headers
 
@@ -286,7 +260,7 @@ We suggest a configuration option to create anchor "slugs" for section headers, 
 - enforce uniqueness via suffix enumeration `-1`
 
 For example, `## Links and Referencing` can be referenced as `[](#links-and-referencing)`.
-These are **implicit** references, and refering to them should raise an `xref_implicit` warning, which can optionally be suppressed by users.
+These are **implicit** references, and referring to them should raise an `xref_implicit` warning, which can optionally be suppressed by users.
 
 Implicit references are **not** available project wide, and are only accessible in the current document, as many documents follow similar structures (Abstract, Introduction, Methods, Summary). Adding two sections of the same name does not raise a duplicate identifier warnings (`xref_duplicate`), section identifiers are only unique to the document.
 
@@ -321,7 +295,7 @@ Files that are outside of the table of contents of the project and are reference
 : Raised when multiple conflicting targets are matched.
 
 `xref_duplicate`
-: Raised when the current target has an explict, duplicate identifier.
+: Raised when the current target has an explicit, duplicate identifier.
 
 `xref_legacy`
 : Raised when a `[](ref)` is used in place of `[](#ref)`.
@@ -331,55 +305,23 @@ Files that are outside of the table of contents of the project and are reference
 
 The links should follow the [link AST](https://www.myst.tools/docs/spec/myst-schema#link) for external links. For internal project cross-references, these should be resolved to a `crossReference` node ([spec](https://www.myst.tools/docs/spec/myst-schema#crossreference)).
 
-For external project links, these extend the link object with additional data that includes the url source (`urlSource`), the protocol name (`myst`), whether the link is internal (`false`), and additional optional metadata about the page that may be helpful to a renderer. For example, `[my custom text](myst:python#zipapp-specifying-the-interpreter)` becomes:
-
-```yaml
-- type: link
-  url: https://docs.python.org/3.7/library/zipapp.html#zipapp-specifying-the-interpreter
-  urlSource: myst:python#zipapp-specifying-the-interpreter
-  children:
-    - type: text
-      value: my custom text
-  data:
-    title: Specifying the Interpreter
-    inv: https://docs.python.org/3.7/objects.inv
-    version: '3.7'
-    enumerator: '2.3'
-    lang: en
-  internal: false
-  protocol: myst
-```
-
-TODO: crossReference spec.
+For external project links, these extend the link object with additional data that includes the url source (`urlSource`), the scheme name (e.g. `project` or `download`), whether the link is internal (e.g. `false`), and additional optional metadata about the page that may be helpful to a renderer.
 
 ## Extensibility
 
 We hope that this syntax will be helpful in simplifying the cross-reference experience in MyST.
-Additionally, we believe that the scheme/protocol extension point is a powerful way to add rich cross-referencing ability to other types of structured data sources. For example, one could imagine a `<wiki:Gravitational_Waves>` extension that cross-references pages in Wikipedia, or a `<doi:10.5281/zenodo.6476040>` extension that adds additional information about DOIs. For simple link replacements, this syntax could also be extended with simple configuration options, similar to the `extlinks` feature in Sphinx ([see documentation](https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html)).
-
-## Examples
-
-<!-- provide examples of what this change would look like in the real world (e.g., raw MyST and rendered output). -->
-
-> Help!
-
-**Enumeration**
-
-- `[Image of a Mountain (Fig. %s)](#my-figure)`
+Additionally, we believe that the scheme/protocol extension point is a powerful way to add rich cross-referencing ability to other types of structured data sources. We expect a future MEP to introduce additional logic to resolve intersphinx references, and other structured data. For example, one could imagine a `<wiki:Gravitational_Waves>` extension that cross-references pages in Wikipedia, or a `<doi:10.5281/zenodo.6476040>` extension that adds additional information about DOIs. For simple link replacements, this syntax could also be extended with simple configuration options, similar to the `extlinks` feature in Sphinx ([see documentation](https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html)).
 
 ## UX implications & migration
 
 All of the syntax is CommonMark compliant and introduces new capabilities to resolve cross references. All existing roles are being maintained for the forseeable future. We suggest that documentation is updated to highlight the new, consistent markdown-link references with the old styles either being removed from docs or moved to advanced sections.
 
-There is a single deprecation of the existing markdown link syntax that references a target and does not have a `#`. When parsers encouter a legacy linked reference, they should raise an `xref_legacy` warning.
+There is a single deprecation of the existing markdown link syntax that references a target and does not have a `#`. When parsers encounter a legacy linked reference, they should raise an `xref_legacy` warning.
 
 ## Questions or objections
 
 **File Protocol**
 : We want to minimize the additional syntax, and it was [suggested](https://github.com/executablebooks/MyST-Parser/pull/613#discussion_r968793460) that we use the `file:` protocol. The `file:` protocol is a security concern in [markdown parsing](https://github.com/markdown-it/markdown-it/blob/08444a5c1c84440f0c03a23c26d5cf57175e7575/lib/index.js#L32), and was not chosen.
-
-**InterSphinx Protocol**
-: There was [discussion](https://github.com/executablebooks/MyST-Parser/pull/613#discussion_r968548359) on what protocol to use for cross-project links (we settled on `myst:`). Other possibilities included `inv:`, we opted for `myst` to reinforce the branding of the project and ensure the concept could be extended to other, richer, content links in the future that were not ".inv" files specifically.
 
 ## References
 
