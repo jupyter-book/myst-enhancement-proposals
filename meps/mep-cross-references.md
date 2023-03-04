@@ -1,19 +1,22 @@
 ---
 title: Cross Reference Simplifications using Markdown Links
 mep:
-  id: <0001 - Add when this MEP becomes Active>
-  created: <2023-01-dd - date MEP is active>
+  id: 0001
+  created: 2023-02-25
   authors:
     - Chris Sewell @chrisjsewell
     - Rowan Cockett @rowanc1
     - Franklin Koch @fwkoch
-  status: Draft
+  status: Active
   discussion: https://github.com/executablebooks/myst-enhancement-proposals/issues/9
 ---
 
 ## Summary
 
-We propose a cross-reference syntax that uses CommonMark links to support all use cases of cross-referencing content internal to a project. The syntax aims to be familiar and work across different rendering platforms. Most internal content can be referenced using a hash-link, `[](#my-id)`, which is the recommended replacement for the multiple role options that can do this in MyST currently (e.g. `` {ref}`my-id` ``, `` {eq}`my-id` ``, `` {numref}`my-id` ``). We provide options for increasing specificity for these links in all cases to deal with duplicate references across pages in a project.
+We propose a cross-reference syntax that uses CommonMark links to support all use cases of cross-referencing content internal to a project.
+The syntax aims to be familiar and work across different rendering platforms.
+Most internal content can be referenced using a hash-link, `[](#my-id)`, which is the recommended replacement for the multiple role options that can do this in MyST currently (e.g. `` {ref}`my-id` ``, `` {eq}`my-id` ``, `` {numref}`my-id` ``).
+We provide options for increasing specificity for these links in all cases to deal with duplicate references across pages in a project.
 
 | Existing Syntax                          | New Syntax                   |
 | :--------------------------------------- | :--------------------------- |
@@ -21,7 +24,7 @@ We propose a cross-reference syntax that uses CommonMark links to support all us
 | `` {ref}`my-id` ``                       | `[](#my-id)`                 |
 | `` {eq}`my-equation` ``                  | `[](#my-equation)`           |
 | `` {ref}`Custom Text <my-id>` ``         | `[Custom Text](#my-id)`      |
-| `` {ref}`See "{name}" <my-id>` ``        | `[See "%t"](#my-id)`         |
+| `` {numref}`See "{name}" <my-id>` ``     | `[See "%t"](#my-id)`         |
 | `` {numref}`Custom Number %s <my-id>` `` | `[Custom Number %s](#my-id)` |
 | `` {doc}`my-doc` ``                      | `[](my-doc.md)`              |
 | `` {doc}`my-doc` ``                      | `[](../examples/my-doc.md)`  |
@@ -38,7 +41,9 @@ In MyST (and Sphinx) there are many ways to cross-reference content:
 - `` {doc}`./my-file.md` `` - referencing other documents
 - `` {download}`pdf <doc/mypdf.pdf>` `` - downloading content
 
-These are all powerful roles, encoding semantic meaning and providing rich inter-linked content. These links can also be used to power rich user-interfaces, such as [sphinx-hoverref](https://sphinx-hoverxref.readthedocs.io/en/latest/). There are also simple configuration options for [adding new external links in Sphinx](https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html).
+These are all powerful roles, encoding semantic meaning and providing rich inter-linked content.
+These links can also be used to power rich user-interfaces, such as [sphinx-hoverref](https://sphinx-hoverxref.readthedocs.io/en/latest/).
+There are also simple configuration options for [adding new external links in Sphinx](https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html).
 However, the breadth, verbosity, and overlapping functionality of these roles can be confusing and unfamiliar to new users.
 
 For example:
@@ -46,11 +51,13 @@ For example:
 - It is not possible to use `numref` for equations, you must use the specific `{eq}` roles.
 - There is functional overlap between `numref` and `ref`, with numbering -- a common activity in scientific/technical writing -- not possible with a generic `ref`.
 
-Additionally, there is currently not overlap with CommonMark syntax that can, for example, reference a section header with a hash `[header](#context)`. This has the advantage that the syntax works in multiple platforms and is a familiar pattern from using website links.
+Additionally, there is currently not overlap with CommonMark syntax that can, for example, reference a section header with a hash `[header](#context)`.
+This has the advantage that the syntax works in multiple platforms and is a familiar pattern from using website links.
 
 ### Design Goals
 
-Our goal with this MEP is to provide a simplified syntax to make use of **markdown links**, and tap into rich cross-referencing capabilities. In this MEP we aim to balance:
+Our goal with this MEP is to provide a simplified syntax to make use of **markdown links**, and tap into rich cross-referencing capabilities.
+In this MEP we aim to balance:
 
 (syntax-design-goals)=
 
@@ -83,11 +90,14 @@ Extensibility
 - Follow web-standards / conventions for URLs where possible (e.g. query strings, protocols)
 - Design new additions to the `myst-spec` AST that can provide rich information to renderers
 
-These link improvements are completed in the context of supporting (1) academic citations; and (2) intersphinx cross-references; however, this MEP does not specifically support the intricacies of intersphinx, bibliographies or referencing. We encourage a future MEPs to address these concerns.
+These link improvements are completed in the context of supporting (1) academic citations; and (2) intersphinx cross-references.
+However, this MEP does not specifically support the intricacies of intersphinx, bibliographies or referencing. We encourage future MEPs to address these concerns.
 
 ### Background
 
-The MEP aims to build on the existing CommonMark link format, which come in three forms (see [spec](https://spec.commonmark.org/0.30/#links)). In the current MEP we are _not_ proposing any changes to CommonMark - and are designing a cross-referencing syntax that can work with existing links. For context, the three CommonMark link types are:
+The MEP aims to build on the existing CommonMark link format, which come in three forms (see [spec](https://spec.commonmark.org/0.30/#links)).
+In the current MEP we are _not_ proposing any changes to CommonMark - and are designing a cross-referencing syntax that can work with existing links.
+For context, the three CommonMark link types are:
 
 1. Inline links with optional text or titles:
 
@@ -149,7 +159,8 @@ The current supported syntax is listed for each component below:
 
 **Intersphinx**
 
-Multiple other sphinx documentation sites can be referenced in MyST syntax ([Sphinx documentation](https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#module-sphinx.ext.intersphinx)). For example, the `python` documentation can be referenced from a configuration (e.g. the [intersphinx_mapping](https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#configuration) in `conf.py`), which points to the appropriate intersphinx inventory (e.g. `https://docs.python.org/3`) containing a `*.inv` file.
+Multiple other sphinx documentation sites can be referenced in MyST syntax ([Sphinx documentation](https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#module-sphinx.ext.intersphinx)).
+For example, the `python` documentation can be referenced from a configuration (e.g. the [intersphinx_mapping](https://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html#configuration) in `conf.py`), which points to the appropriate intersphinx inventory (e.g. `https://docs.python.org/3`) containing a `*.inv` file.
 
 - `` {external+python:py:class}`zipfile.ZipFile` `` - a reference to the Python class `ZipFile`
 - `` {py:class}`zipfile.ZipFile` `` - a short-hand reference that will search locally first, then any referenced inventories
@@ -164,7 +175,8 @@ All link syntax supports styling inside of the reference, (e.g. `[A **bolded _re
 
 ## Proposal
 
-We propose a cross-reference syntax that uses CommonMark links in all three forms. The goal is to support all use cases of cross-referencing with the most common use cases of referencing a document, file, section or element being simple, terse and familiar.
+We propose a cross-reference syntax that uses CommonMark links in all three forms.
+The goal is to support all use cases of cross-referencing with the most common use cases of referencing a document, file, section or element being simple, terse and familiar.
 
 **Overview:**
 
@@ -174,7 +186,7 @@ We propose a cross-reference syntax that uses CommonMark links in all three form
 | `` {ref}`my-id` ``                       | `[](#my-id)`                 |
 | `` {eq}`my-equation` ``                  | `[](#my-equation)`           |
 | `` {ref}`Custom Text <my-id>` ``         | `[Custom Text](#my-id)`      |
-| `` {ref}`See "{name}" <my-id>` ``        | `[See "%t"](#my-id)`         |
+| `` {numref}`See "{name}" <my-id>` ``     | `[See "%t"](#my-id)`         |
 | `` {numref}`Custom Number %s <my-id>` `` | `[Custom Number %s](#my-id)` |
 | `` {doc}`my-doc` ``                      | `[](my-doc.md)`              |
 | `` {doc}`my-doc` ``                      | `[](../examples/my-doc.md)`  |
@@ -188,7 +200,8 @@ In all cases, the existing role syntax should continue to work and receive ongoi
 
 ### Syntax
 
-The parts of the link are `[text](link "title")` with an optional scheme (`[text](scheme:link "title")`). The `"title"` is not modified in our proposed syntax. Auto Link syntax, `<scheme:link>`, requires the scheme to be present, we follow the CommonMark [definition of a scheme](https://spec.commonmark.org/0.30/#scheme).
+The parts of the link are `[text](link "title")` with an optional scheme (`[text](scheme:link "title")`).
+The `"title"` is not modified in our proposed syntax. Auto Link syntax, `<scheme:link>`, requires the scheme to be present, we follow the CommonMark [definition of a scheme](https://spec.commonmark.org/0.30/#scheme).
 
 #### `text`
 
@@ -203,24 +216,26 @@ If the `text` is included it will be used as is with two additional template val
 - Enumeration (`%s`)
 
   - Any reference target that is enumerated can reference that number or string with a `%s`.
-  - If the target is enumerated, the default will be the numbered form of the reference (e.g. "Section 2.1.2", "Fig. 3", or "(1)")
+  - If the target is enumerated and there is no text provided by the link, the text will be the numbered form of the reference (e.g. "Section 2.1.2", "Fig. 3", or "(1)" depending on the node and parser options)
   - If a `%s` is used and the node is not enumerated, the `%s` will be replaced by "??" and a warning raised.
-  - Parsers can optionally choose to support `{number}` which is from Sphinx.
 
 - Title (`%t`)
   - Any node can include the title of a reference including any styles (e.g. Sections are the section title; Figures and Tables are the caption).
   - If a `%t` is used and the node does not have an explicit name or title, the node reference label will be used.
-  - Parsers can optionally choose to support `{name}` which is from Sphinx.
+
+In both cases, the `%` can be escaped with a preceding backslash, that is `\%s` or `\%t`, and the text will not be replaced.
 
 #### `link`
 
-The links are defined by a scheme, which can be standard protocols (`http:`, `mailto:`). Here we propose three new schemes, `path`, `project`, and `myst`, which is an extensibility point described by [CommonMark](https://spec.commonmark.org/0.30/#example-598). These schemes are used to indicate that the link should be resolved by MyST specific logic, and follows standard [URI][uri] syntax:
+The links are defined by a scheme, which can be standard protocols (`http:`, `mailto:`).
+Here we propose three new schemes, `path` and `project` which is an extensibility point described by [CommonMark](https://spec.commonmark.org/0.30/#example-598).
+These schemes are used to indicate that the link should be resolved by MyST specific logic, and follows standard [URI][uri] syntax:
 
 ```text
 URI = scheme ":" pathname ["?" query] "#" fragment
 ```
 
-In most cases, as seen in the summary above the scheme is not required to be explicit and can be inferred safely by the context.
+In most cases, as seen in the summary above the scheme is optional and can be inferred safely by the context.
 The exception is when _explicitly_ referring to an external MyST site, Jupyter Book or Sphinx documentation site.
 These URIs can be safely and easily parsed by any common URL parser. For example in Javascript:
 
@@ -244,11 +259,12 @@ For most internally linked references, we expect the inline syntax to be most co
 
 ### Search Order and Specificity
 
-All references search the local document first[^specific_doc], then the local project in the order of the table of contents. A `xref_multiple` warning is raised if multiple matches are found.
+All references search the local document first[^specific_doc], then the local project in the order of the table of contents. A `xref_ambiguous` warning is raised if multiple matches are found.
 
 [^specific_doc]: With the exception of an explicit reference to a specific page, i.e. `[](./examples/my-doc.md#explicit-reference)`
 
-In large documentation sites, a referenced target can be present in multiple documents, in that case, the parser will emit a `xref_multiple` warning letting you know that there are multiple matches for the intended target.
+In large documentation sites, a referenced target can be present in multiple documents, in that case, the parser will emit a `xref_ambiguous` warning letting you know that there are multiple matches for the intended target.
+If a link cannot be resolved, an external link should be rendered, for example, `<a href="#target">#target</a>`.
 
 ### Implicit Section Headers
 
@@ -260,9 +276,10 @@ We suggest a configuration option to create anchor "slugs" for section headers, 
 - enforce uniqueness via suffix enumeration `-1`
 
 For example, `## Links and Referencing` can be referenced as `[](#links-and-referencing)`.
-These are **implicit** references, and referring to them should raise an `xref_implicit` warning, which can optionally be suppressed by users.
+Every heading level in a document should have an anchor, however, these are **implicit** references, and referring to them can raise an `xref_implicit` warning, which can optionally be suppressed by users.
 
-Implicit references are **not** available project wide, and are only accessible in the current document, as many documents follow similar structures (Abstract, Introduction, Methods, Summary). Adding two sections of the same name does not raise a duplicate identifier warnings (`xref_duplicate`), section identifiers are only unique to the document.
+Implicit references are **not** available project wide, and are only accessible in the current document, as many documents follow similar structures (Abstract, Introduction, Methods, Summary).
+Adding two sections of the same name does not raise a duplicate identifier warnings (`xref_duplicate`), section identifiers are only unique to the document.
 
 ### Paths
 
@@ -291,11 +308,8 @@ Files that are outside of the table of contents of the project and are reference
 `xref_unsupported`
 : Raised if the the current environment does not support the reference look up. For example, single page builds.
 
-`xref_multiple`
+`xref_ambiguous`
 : Raised when multiple conflicting targets are matched.
-
-`xref_duplicate`
-: Raised when the current target has an explicit, duplicate identifier.
 
 `xref_legacy`
 : Raised when a `[](ref)` is used in place of `[](#ref)`.
@@ -303,20 +317,27 @@ Files that are outside of the table of contents of the project and are reference
 
 ### Specification AST
 
-The links should follow the [link AST](https://www.myst.tools/docs/spec/myst-schema#link) for external links. For internal project cross-references, these should be resolved to a `crossReference` node ([spec](https://www.myst.tools/docs/spec/myst-schema#crossreference)).
+The links should follow the [link AST](https://www.myst.tools/docs/spec/myst-schema#link) for external links.
+For internal project cross-references, these should be resolved to a `crossReference` node ([spec](https://www.myst.tools/docs/spec/myst-schema#crossreference)).
 
 For external project links, these extend the link object with additional data that includes the url source (`urlSource`), the scheme name (e.g. `project` or `download`), whether the link is internal (e.g. `false`), and additional optional metadata about the page that may be helpful to a renderer.
 
 ## Extensibility
 
 We hope that this syntax will be helpful in simplifying the cross-reference experience in MyST.
-Additionally, we believe that the scheme/protocol extension point is a powerful way to add rich cross-referencing ability to other types of structured data sources. We expect a future MEP to introduce additional logic to resolve intersphinx references, and other structured data. For example, one could imagine a `<wiki:Gravitational_Waves>` extension that cross-references pages in Wikipedia, or a `<doi:10.5281/zenodo.6476040>` extension that adds additional information about DOIs. For simple link replacements, this syntax could also be extended with simple configuration options, similar to the `extlinks` feature in Sphinx ([see documentation](https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html)).
+Additionally, we believe that the scheme/protocol extension point is a powerful way to add rich cross-referencing ability to other types of structured data sources.
+We expect a future MEP to introduce additional logic to resolve intersphinx references, and other structured data.
+For example, one could imagine a `<wiki:Gravitational_Waves>` extension that cross-references pages in Wikipedia, or a `<doi:10.5281/zenodo.6476040>` extension that adds additional information about DOIs.
+For simple link replacements, this syntax could also be extended with simple configuration options, similar to the `extlinks` feature in Sphinx ([see documentation](https://www.sphinx-doc.org/en/master/usage/extensions/extlinks.html)).
 
 ## UX implications & migration
 
-All of the syntax is CommonMark compliant and introduces new capabilities to resolve cross references. All existing roles are being maintained for the forseeable future. We suggest that documentation is updated to highlight the new, consistent markdown-link references with the old styles either being removed from docs or moved to advanced sections.
+All of the syntax is CommonMark compliant and introduces new capabilities to resolve cross references.
+All existing roles are being maintained for the forseeable future.
+We suggest that documentation is updated to highlight the new, consistent markdown-link references with the old styles either being removed from docs or moved to advanced sections.
 
-There is a single deprecation of the existing markdown link syntax that references a target and does not have a `#`. When parsers encounter a legacy linked reference, they should raise an `xref_legacy` warning.
+There is a single deprecation of the existing markdown link syntax that references a target and does not have a `#`.
+When parsers encounter a legacy linked reference, they should raise an `xref_legacy` warning.
 
 ## Questions or objections
 
