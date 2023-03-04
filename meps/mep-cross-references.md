@@ -215,8 +215,8 @@ If the `text` is included it will be used as is with two additional template val
 
 - Enumeration (`{number}`)
 
-  - Any reference target that is enumerated can reference that number or string with a `{number}`.
-  - If the target is enumerated and there is no text provided by the link, the text will be the numbered form of the reference (e.g. "Section 2.1.2", "Fig. 3", or "(1)" depending on the node and parser options)
+  - Any reference target that is enumerated can reference that number or string with a `{number}`; the `{number}` is only the enumerator and does not include any preceding text.
+    - For example, if referencing `#my-section` with default text of `Section 2.1.2`, you can change the reference to `See 2.1.2` with `[See {number}](#my-section)`.
   - If a `{number}` is used and the node is not enumerated, the `{number}` will be replaced by "??" and a warning raised.
 
 - Reference text (`{name}`)
