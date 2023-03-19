@@ -1,4 +1,5 @@
 ---
+title: Simplify Named Admonition Syntax
 mep:
   id: <NNNN - Add when this MEP becomes Active>
   created: <yyyy-mm-dd - date MEP is active>
@@ -6,7 +7,7 @@ mep:
     - Rowan Cockett @rowanc1
     - Matt McKay @mmcky
   status: Draft
-  discussion:
+  discussion: https://github.com/executablebooks/myst-enhancement-proposals/pull/12
 ---
 
 # Simplify Named Admonition Syntax
