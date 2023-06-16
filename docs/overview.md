@@ -83,7 +83,7 @@ Merging this PR implements the MEP, and makes it a formal part of the spec.
 Parsers may now implement this change as well. This MEP process is now finished.
 
 ```{admonition} Update the MyST documentation as well
-While not formally part of the MyST spec, the MyST guide at [myst-tools.org](https://myst-tools.org) should also be updated as quickly as possible, so that users can more easily learn about the most up-to-date MyST specification.
+While not formally part of the MyST spec, the MyST guide at [mystmd.org](https://mystmd.org) should also be updated as quickly as possible, so that users can more easily learn about the most up-to-date MyST specification.
 ```
 
 ## Appendix: When should I open a MEP?

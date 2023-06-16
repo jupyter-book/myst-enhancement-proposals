@@ -1,7 +1,7 @@
 (governance:meps)=
 # MyST Enhancement Proposals
 
-A formal process for changing [the MyST Markdown Specification](https://myst-tools.org/docs/spec) and an archive of present and past proposals.
+A formal process for changing [the MyST Markdown Specification](https://mystmd.org/spec) and an archive of present and past proposals.
 
 Because the MyST specification has many interior and exterior stakeholders, we use a more formal and structured process around changing the specification[^gov].
 These are called **MyST Enhancement Proposals (MEPs)**.
@@ -31,7 +31,7 @@ Bear with us, and please provide feedback if you think the process can be improv
 
 ## MyST Specification
 
-The MyST specification is at [`spec.myst-tools.org`](https://spec.myst-tools.org) (repository: https://github.com/executablebooks/myst-spec).
+The MyST specification is at [`spec.mystmd.org`](https://spec.mystmd.org) (repository: https://github.com/executablebooks/myst-spec).
 It is the source of truth for MyST Markdown syntax.
 
 When a MEP is accepted, it is generally implemented by modifying the specification and the documentation around it.
@@ -39,7 +39,7 @@ MyST parsers may then choose to implement these changes on their own.
 
 ```{toctree}
 :hidden:
-MyST specification <https://spec.myst-tools.org>
+MyST specification <https://spec.mystmd.org>
 ```
 
 ## List of MEPs
