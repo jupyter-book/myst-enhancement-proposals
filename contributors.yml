@@ -1,0 +1,51 @@
+version: 1
+project:
+  contributors:
+    - id: choldgraf
+      name: Chris Holdgraf
+      github: choldgraf
+      orcid: 0000-0002-2391-0678
+      affiliation: 2i2c
+    - id: chrisjsewell
+      name: Chris Sewell
+      github: chrisjsewell
+    - id: fperez
+      name: Fernando Perez
+      github: fperez
+      orcid: 0000-0002-1725-9815
+    - id: firasm
+      name: Firas Moosvi
+      github: firasm
+      orcid: 0000-0001-7007-4636
+      affiliation: University of British Columbia
+    - id: fwkoch
+      name: Franklin Koch
+      github: fwkoch
+      email: franklin@curvenote.com
+      affiliation: Curvenote Inc.
+      orcid: 0000-0002-6393-7058
+    - id: gregcaporaso
+      name: Greg Caporaso
+      github: gregcaporaso
+      orcid: 0000-0002-8865-1670
+      affiliation: Northern Arizona University
+    - id: jstac
+      name: John Stachurski
+      github: jstac
+      orcid: 0000-0001-6716-0111
+      affiliation: Australian National University
+    - id: mmcky
+      name: Matthew McKay
+      github: mmcky
+    - id: rowanc1
+      name: Rowan Cockett
+      github: rowanc1
+      orcid: 0000-0002-7859-8394
+      affiliation: Curvenote Inc.
+      email: rowan@curvenote.com
+    - id: stevejpurves
+      name: Steve Purves
+      github: stevejpurves
+      orcid: 0000-0002-0760-5497
+      affiliation: Curvenote Inc.
+      email: steve@curvenote.com

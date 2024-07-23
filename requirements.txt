@@ -1,7 +1,0 @@
-linkify-it-py
-myst-parser
-pandas
-pyyaml
-sphinx-book-theme>=v1.0.0rc1
-sphinx-design
-tabulate

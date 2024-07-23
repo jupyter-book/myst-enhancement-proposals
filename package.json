@@ -1,0 +1,14 @@
+{
+  "name": "mep",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}

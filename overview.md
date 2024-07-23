@@ -1,4 +1,4 @@
-# MEP process overview
+# Process Overview
 
 Below is an overview of the MEP process.
 Each section below is a step that should be followed in order.
@@ -11,16 +11,17 @@ _MEPs should ideally have at least two, and ideally 3-4 co-authors from differen
 
 ## Step 2: Make a proposal via a PR to `myst-enhancement-proposals`
 
-Use a markdown template to structure your proposal. The `status` should initially be set to `Draft`. Here's a proposed template:
+Use a markdown template to structure your proposal. The `tag` should initially be set to `Draft`. Here's a proposed template:
 
-```
+```yaml
 ---
-mep:
-  id: <NNNN - Add when this MEP becomes Active>
-  created: <yyyy-mm-dd - date MEP is active>
-  authors:
-    - <authors' real names, optional github handle>
-  status: <Draft | Active | Accepted | Not Accepted>
+label: <MEP000# - Add when this MEP becomes Active>
+date: <yyyy/mm/dd - date MEP is active>
+authors:
+  - <github handle> # Add to `contributors.yml`
+tags:
+  - <Draft | Active | Accepted | Not Accepted>
+data:
   discussion: <URL of canonical location for discussion>
 ---
 # <title here>
@@ -49,6 +50,7 @@ mep:
 
 <!-- reference other examples you're using for inspiration or to help others learn and understand the proposal. -->
 ```
+
 ## Step 3: Discuss and iterate
 
 Invite discussion from others in the community. Incorporate new ideas as individuals (particularly core team members) raise objections or make suggestions.
@@ -69,16 +71,17 @@ Once the proposal has stabilized and the author wishes to move forward, do the f
   - At least two `PR Approvals` from **core team members**.
   - No `Request Changes` from a core team member.
 - If there are **unresolved objections** (via `Request Changes` to the PR)
-  - The MEP author may restart the voting process after incorporating feedback to resolve the objection, **or** ask the Steering Council to follow the same {external:ref}`decision-making process used for team policy <governance:policy-decision>`.
+  - The MEP author may restart the voting process after incorporating feedback to resolve the objection, **or** ask the Steering Council to follow the same [decision-making process used for team policy](xref:compass#governance:policy-decision).
 - If there are no unresolved objections, the MEP is **accepted**:
   - Update its status metadata to `Accepted` and merge the PR.
   - Once a PR is merged, it closes the issue and a decision has been made.
-  - Finally, follow [](process:implement).
+  - Finally, follow [](#process:implement).
 
 (process:implement)=
+
 ## Step 5: Update `myst-spec`
 
-When a MEP has been accepted, open a Pull Request to apply the necessary changes to https://github.com/executablebooks/myst-spec.
+When a MEP has been accepted, open a Pull Request to apply the necessary changes to https://github.com/jupyter-book/myst-spec.
 Merging this PR implements the MEP, and makes it a formal part of the spec.
 Parsers may now implement this change as well. This MEP process is now finished.
 
@@ -99,6 +102,7 @@ As a guide, below are examples of topics that warrant a MEP:
 - Amending the MEP process itself
 
 (appendix:blocking)=
+
 ## Appendix: When to ask for changes
 
 When blocking any change or objecting to a proposal, provide a rationale for what must be changed and why you believe it is critically important. _Do not disapprove because of differences in opinion. Only disapprove if you have a major strategic concern_. See [Strategies for integrating objections](https://www.sociocracyforall.org/strategies-for-integrating-objections/) for what we are aiming for.
