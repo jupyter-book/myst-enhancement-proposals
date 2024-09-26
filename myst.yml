@@ -1,0 +1,44 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+extends:
+  - contributors.yml
+project:
+  id: 29dc2154-fa34-492f-82d6-ed47cb8bc58c
+  title: MyST Enhancement Proposals
+  description: A formal process for changing the MyST Markdown Specification and an archive of present and past proposals.
+  # keywords: []
+  github: https://github.com/jupyter-book/myst-enhancement-proposals
+  # To autogenerate a Table of Contents, run "myst init --write-toc"
+  toc:
+    - file: index.md
+    - file: overview.md
+    - file: strategy.md
+    - file: list.md
+      children:
+        - pattern: meps/mep-*
+    - title: MyST Specification
+      url: https://spec.mystmd.org
+  abbreviations:
+    MEP: MyST Enhancement Proposal
+    MyST: Markedly Structured Text
+    PR: Pull Request
+  subject: MyST Enhancement Proposals
+  venue:
+    title: Project Jupyter
+    url: https://jupyter.org
+  open_access: true
+  license: CC-BY-4.0
+  references:
+    compass: https://compass.executablebooks.org/en/latest/
+  plugins:
+    - mep.mjs
+site:
+  template: book-theme
+  nav:
+    - title: MyST Markdown
+      url: https://mystmd.org
+    - title: Team Compass
+      url: https://compass.jupyterbook.org
+  options:
+    favicon: images/favicon.svg
+    logo: images/logo.svg
