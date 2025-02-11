@@ -68,10 +68,10 @@ Once the proposal has stabilized and the author wishes to move forward, do the f
   - To request blocking changes, then click `Request Changes` in the GitHub UI. (see [](#appendix:blocking))
 - A MEP may be accepted when all of the following conditions are met:
   - More than five (5) weekdays have passed since the proposal was marked as `Active`.
-  - At least two `PR Approvals` from **core team members**.
+  - At least two `PR Approvals` from [**core team or steering council members**](xref:compass#team).
   - No `Request Changes` from a core team member.
 - If there are **unresolved objections** (via `Request Changes` to the PR)
-  - The MEP author may restart the voting process after incorporating feedback to resolve the objection, **or** ask the Steering Council to follow the same [decision-making process used for team policy](xref:compass#governance:policy-decision).
+  - The MEP author may restart the voting process after incorporating feedback to resolve the objection, **or** ask the Steering Council to follow the same [decision-making process used for team policy](xref:compass#governance).
 - If there are no unresolved objections, the MEP is **accepted**:
   - Update its status metadata to `Accepted` and merge the PR.
   - Once a PR is merged, it closes the issue and a decision has been made.

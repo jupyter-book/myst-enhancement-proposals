@@ -7,7 +7,7 @@ A formal process for changing [the MyST Markdown Specification](https://mystmd.o
 Because the MyST specification has many interior and exterior stakeholders, we use a more formal and structured process around changing the specification[^gov].
 These are called **MyST Enhancement Proposals (MEPs)**.
 
-[^gov]: See [our Team Compass](https://compass.jupyterbook.org) for other governance and decision-making processes in the Executable Books community.
+[^gov]: See [our Team Compass](xref:compass) for other governance and decision-making processes in the Executable Books community.
 
 This process is encoded in https://github.com/jupyter-book/myst-enhancement-proposals and in this documentation.
 The sections below describe the process, and the [](list.md) is where you can find all of our MEPs.

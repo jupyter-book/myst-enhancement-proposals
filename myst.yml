@@ -29,7 +29,7 @@ project:
   open_access: true
   license: CC-BY-4.0
   references:
-    compass: https://compass.executablebooks.org/en/latest/
+    compass: https://compass.jupyterbook.org/
   plugins:
     - mep.mjs
 site:
