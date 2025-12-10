@@ -23,7 +23,7 @@ function getTableData(meps = 'meps') {
     return results;
   };
 
-  const mepFiles = readDirectoryRecursively(meps).filter((file) => file.includes('mep-'));
+  const mepFiles = readDirectoryRecursively(meps).filter((file) => file.includes('mep-') && file.endsWith('.md'));
 
   mepFiles.forEach((imep) => {
     const text = readFileSync(imep, 'utf-8');
