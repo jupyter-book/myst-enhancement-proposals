@@ -1,0 +1,16 @@
+# Netlify configuration for PR previews - this is NOT for the live site! That uses GH actions
+[build]
+  publish = "_build/html"
+  environment = { PYTHON_VERSION = "3.12" }
+  command = """
+    # Build with the latest published mystmd release
+    # (Release notes generation via gh is skipped in Netlify; run locally if needed)
+    npm install -g mystmd@latest && \
+    myst build --html -d
+  """
+
+# Keep all deploy contexts out of search indexing because we use github actions for the live site
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
