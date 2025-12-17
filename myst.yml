@@ -22,6 +22,8 @@ project:
     MEP: MyST Enhancement Proposal
     MyST: Markedly Structured Text
     PR: Pull Request
+    AST: Abstract Syntax Tree
+    CLI: Command Line Interface
   subject: MyST Enhancement Proposals
   venue:
     title: Project Jupyter
